@@ -7,7 +7,7 @@ setup(
     install_requires=["requests"],  
     entry_points={
         "console_scripts": [
-            "postguy = postguy.cli:main",
+            "postguy = postguy.cli:PostguyCLI.run",
         ],
     },
     author="JohnWilliam24.dev",
