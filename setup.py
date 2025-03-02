@@ -7,7 +7,7 @@ setup(
     install_requires=["requests"],  
     entry_points={
         "console_scripts": [
-            "capigit = capigit.cli:main",
+            "postguy = postguy.cli:main",
         ],
     },
     author="JohnWilliam24.dev",
