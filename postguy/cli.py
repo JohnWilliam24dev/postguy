@@ -106,6 +106,6 @@ class PostguyCLI:
             elif comando == "postj":
                 postj_postguy(url, args.json_path)
 
-if __name__ == "__main__":
+def main():
     cli = PostguyCLI()
     cli.run()
