@@ -1,2 +1,8 @@
-# postguy
-Um CLI simples projetado para deixar seus testes de API bem mais fáceis e praticas.
+# POSTGUY
+A ideia consiste em poder testar suas APIs de forma rapida e automatizada do padrão REST API como GET, POST, PUT, PATCH e DELETE
+
+# INSTALAÇÃO
+## LINUX
+curl -sSL https://raw.githubusercontent.com/JohnWilliam24dev/postguy/main/install.sh | bash 
+
+pip install --upgrade git+https://github.com/JohnWilliam24dev/postguy.git
