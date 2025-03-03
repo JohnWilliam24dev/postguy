@@ -5,7 +5,7 @@ import json
 CONFIG_FILE = "config.json"
 
 def set_postguy(url: str):
-    """Armazena a URL no arquivo de configuração."""
+    
     config = {"url": url}
     with open(CONFIG_FILE, "w", encoding="utf-8") as f:
         json.dump(config, f)
@@ -13,7 +13,7 @@ def set_postguy(url: str):
     return url
 
 def get_url():
-    """Lê a URL armazenada; se não existir, solicita que seja configurada."""
+    
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "r", encoding="utf-8") as f:
             config = json.load(f)
@@ -23,7 +23,7 @@ def get_url():
         return None
 
 def get_postguy(url: str):
-    """Realiza uma requisição GET."""
+   
     response_get = requests.get(url)
     if response_get.status_code < 300:
         print("GET:", response_get.content)
@@ -32,12 +32,12 @@ def get_postguy(url: str):
         print("Status:", response_get.status_code)
 
 def post_postguy(url: str, json_data):
-    """Realiza uma requisição POST com um objeto JSON passado como string."""
+    
     response_post = requests.post(url, json=json_data)
     print("POST code:", response_post.status_code)
 
 def postj_postguy(url: str, json_path: str):
-    """Realiza uma requisição POST lendo os dados de um arquivo JSON."""
+    
     try:
         with open(json_path, "r", encoding="utf-8") as file:
             dados = json.load(file)
@@ -52,7 +52,7 @@ def postj_postguy(url: str, json_path: str):
         print("Não foi possível decodificar a resposta como JSON.")
 
 def put_postguy(url: str, json_data):
-    """Realiza uma requisição PUT com um objeto JSON."""
+    
     response_put = requests.put(url, json=json_data)
     print("PUT code:", response_put.status_code)
     try:
@@ -61,7 +61,7 @@ def put_postguy(url: str, json_data):
         print("Não foi possível decodificar a resposta como JSON.")
 
 def patch_postguy(url: str, json_data):
-    """Realiza uma requisição PATCH com um objeto JSON."""
+    
     response_patch = requests.patch(url, json=json_data)
     print("PATCH code:", response_patch.status_code)
     try:
@@ -70,7 +70,7 @@ def patch_postguy(url: str, json_data):
         print("Não foi possível decodificar a resposta como JSON.")
 
 def delete_postguy(url: str, json_data=None):
-    """Realiza uma requisição DELETE. Se json_data for fornecido, é enviado na requisição."""
+    
     if json_data is not None:
         response_delete = requests.delete(url, json=json_data)
     else:
@@ -82,7 +82,7 @@ def delete_postguy(url: str, json_data=None):
         print("Não foi possível decodificar a resposta como JSON.")
 
 def putj_postguy(url: str, json_path: str):
-    """Realiza uma requisição PUT lendo os dados de um arquivo JSON."""
+    
     try:
         with open(json_path, "r", encoding="utf-8") as file:
             dados = json.load(file)
@@ -97,7 +97,7 @@ def putj_postguy(url: str, json_path: str):
         print("Não foi possível decodificar a resposta como JSON.")
 
 def patchj_postguy(url: str, json_path: str):
-    """Realiza uma requisição PATCH lendo os dados de um arquivo JSON."""
+   
     try:
         with open(json_path, "r", encoding="utf-8") as file:
             dados = json.load(file)

@@ -17,11 +17,11 @@ class PostguyCLI:
         self._add_get_command()
         self._add_post_command()
         self._add_post_json_command()
-        self._add_put_command()     # Comando PUT com JSON inline
-        self._add_patch_command()   # Comando PATCH com JSON inline
-        self._add_delete_command()  # Comando DELETE (opcional com payload)
-        self._add_putj_command()    # Novo comando PUT utilizando arquivo JSON
-        self._add_patchj_command()  # Novo comando PATCH utilizando arquivo JSON
+        self._add_put_command()     
+        self._add_patch_command()   
+        self._add_delete_command()
+        self._add_putj_command()    
+        self._add_patchj_command()  
 
     def _add_set_command(self):
         set_parser = self.subparser.add_parser(
