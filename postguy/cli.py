@@ -3,7 +3,7 @@ import argparse
 import json
 import os
 
-import postguy_service as ps
+from . import postguy_service as ps
 
 
 class PostguyCLI:
