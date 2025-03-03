@@ -2,56 +2,9 @@
 import argparse
 import json
 import os
-import requests
 
-CONFIG_FILE = "config.json"
+import postguy_service as ps
 
-def set_postguy(url: str):
-    """Armazena a URL no arquivo de configuração."""
-    config = {"url": url}
-    with open(CONFIG_FILE, "w", encoding="utf-8") as f:
-        json.dump(config, f)
-    print("URL configurada:", url)
-    return url
-
-def get_url():
-    """Lê a URL armazenada; se não existir, solicita que seja configurada."""
-    if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-            config = json.load(f)
-        return config.get("url")
-    else:
-        print("Nenhuma URL configurada. Use o comando 'set' para definir a URL da API.")
-        return None
-
-def get_postguy(url: str):
-    """Realiza uma requisição GET."""
-    response_get = requests.get(url)
-    if response_get.status_code < 300:
-        print("GET:", response_get.content)
-    else:
-        print("Não foi possível conectar")
-        print("Status:", response_get.status_code)
-
-def post_postguy(url: str, json_data):
-    """Realiza uma requisição POST com um objeto JSON passado como string."""
-    response_post = requests.post(url, json=json_data)
-    print("POST code:", response_post.status_code)
-
-def postj_postguy(url: str, json_path: str):
-    """Realiza uma requisição POST lendo os dados de um arquivo JSON."""
-    try:
-        with open(json_path, "r", encoding="utf-8") as file:
-            dados = json.load(file)
-    except Exception as e:
-        print("Erro ao ler o arquivo JSON:", e)
-        return
-    response_postj = requests.post(url, json=dados)
-    print("POST code:", response_postj.status_code)
-    try:
-        print("POST response:", response_postj.json())
-    except Exception:
-        print("Não foi possível decodificar a resposta como JSON.")
 
 class PostguyCLI:
     def __init__(self):
@@ -64,6 +17,11 @@ class PostguyCLI:
         self._add_get_command()
         self._add_post_command()
         self._add_post_json_command()
+        self._add_put_command()     # Comando PUT com JSON inline
+        self._add_patch_command()   # Comando PATCH com JSON inline
+        self._add_delete_command()  # Comando DELETE (opcional com payload)
+        self._add_putj_command()    # Novo comando PUT utilizando arquivo JSON
+        self._add_patchj_command()  # Novo comando PATCH utilizando arquivo JSON
 
     def _add_set_command(self):
         set_parser = self.subparser.add_parser(
@@ -82,30 +40,83 @@ class PostguyCLI:
     def _add_post_json_command(self):
         postjson_parser = self.subparser.add_parser("postj", help="Realiza um teste POST utilizando um arquivo JSON")
         postjson_parser.add_argument("json_path", help="Caminho para o arquivo JSON")
+    
+    def _add_put_command(self):
+        put_parser = self.subparser.add_parser("put", help="Realiza um teste PUT na API")
+        put_parser.add_argument("json", help="String JSON a ser enviada")
+
+    def _add_patch_command(self):
+        patch_parser = self.subparser.add_parser("patch", help="Realiza um teste PATCH na API")
+        patch_parser.add_argument("json", help="String JSON a ser enviada")
+
+    def _add_delete_command(self):
+        delete_parser = self.subparser.add_parser("delete", help="Realiza um teste DELETE na API")
+        delete_parser.add_argument("--json", help="String JSON a ser enviada (opcional)", default=None)
+
+    def _add_putj_command(self):
+        putj_parser = self.subparser.add_parser("putj", help="Realiza um teste PUT utilizando um arquivo JSON")
+        putj_parser.add_argument("json_path", help="Caminho para o arquivo JSON")
+
+    def _add_patchj_command(self):
+        patchj_parser = self.subparser.add_parser("patchj", help="Realiza um teste PATCH utilizando um arquivo JSON")
+        patchj_parser.add_argument("json_path", help="Caminho para o arquivo JSON")
 
     def run(self):
         args = self.parser.parse_args()
         comando = args.comando
 
         if comando == "set":
-            set_postguy(args.url)
+            ps.set_postguy(args.url)
         else:
-            url = get_url()
+            url = ps.get_url()
             if not url:
                 return
 
             if comando == "get":
-                get_postguy(url)
+                ps.get_postguy(url)
             elif comando == "post":
                 try:
                     json_data = json.loads(args.json)
                 except Exception as e:
                     print("Erro ao decodificar JSON:", e)
                     return
-                post_postguy(url, json_data)
+                ps.post_postguy(url, json_data)
             elif comando == "postj":
-                postj_postguy(url, args.json_path)
+                ps.postj_postguy(url, args.json_path)
+            elif comando == "put":
+                try:
+                    json_data = json.loads(args.json)
+                except Exception as e:
+                    print("Erro ao decodificar JSON:", e)
+                    return
+                ps.put_postguy(url, json_data)
+            elif comando == "patch":
+                try:
+                    json_data = json.loads(args.json)
+                except Exception as e:
+                    print("Erro ao decodificar JSON:", e)
+                    return
+                ps.patch_postguy(url, json_data)
+            elif comando == "delete":
+                if args.json:
+                    try:
+                        json_data = json.loads(args.json)
+                    except Exception as e:
+                        print("Erro ao decodificar JSON:", e)
+                        return
+                else:
+                    json_data = None
+                ps.delete_postguy(url, json_data)
+            elif comando == "putj":
+                ps.putj_postguy(url, args.json_path)
+            elif comando == "patchj":
+                ps.patchj_postguy(url, args.json_path)
+
 
 def main():
     cli = PostguyCLI()
     cli.run()
+
+
+if __name__ == "__main__":
+    main()
