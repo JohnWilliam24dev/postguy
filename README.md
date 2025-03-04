@@ -3,6 +3,9 @@ A ideia consiste em poder testar suas APIs de forma rapida e automatizada do pad
 
 # INSTALAÇÃO
 ## LINUX
+
 curl -sSL https://raw.githubusercontent.com/JohnWilliam24dev/postguy/main/install.sh | bash 
 
-pip install --upgrade git+https://github.com/JohnWilliam24dev/postguy.git
+##WINDOWS
+
+Acesse a pagina releases e baixe a versão mais recente
