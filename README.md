@@ -6,6 +6,6 @@ A ideia consiste em poder testar suas APIs de forma rapida e automatizada do pad
 
 curl -sSL https://raw.githubusercontent.com/JohnWilliam24dev/postguy/main/install.sh | bash 
 
-##WINDOWS
+## WINDOWS
 
 Acesse a pagina releases e baixe a versão mais recente
