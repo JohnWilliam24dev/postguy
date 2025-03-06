@@ -11,6 +11,19 @@ def set_postguy(url: str):
         json.dump(config, f)
     print("URL configurada:", url)
     return url
+def set_default_json(json_path: str):
+    
+    config = {}
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+            try:
+                config = json.load(f)
+            except Exception:
+                config = {}
+    config["default_json"] = json_path
+    with open(CONFIG_FILE, "w", encoding="utf-8") as f:
+        json.dump(config, f)
+    print("Caminho padrão do JSON configurado:", json_path)
 
 def get_url():
     
@@ -36,8 +49,20 @@ def post_postguy(url: str, json_data):
     response_post = requests.post(url, json=json_data)
     print("POST code:", response_post.status_code)
 
-def postj_postguy(url: str, json_path: str):
-    
+def get_default_json():
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+            config = json.load(f)
+        return config.get("default_json")
+    else:
+        return None
+
+def postj_postguy(url: str, json_path: str = None):
+    if json_path is None:
+        json_path = get_default_json()
+        if json_path is None:
+            print("Caminho do JSON não informado e nenhum padrão foi configurado. Use 'setjson' para definir um caminho.")
+            return
     try:
         with open(json_path, "r", encoding="utf-8") as file:
             dados = json.load(file)
@@ -81,8 +106,13 @@ def delete_postguy(url: str, json_data=None):
     except Exception:
         print("Não foi possível decodificar a resposta como JSON.")
 
-def putj_postguy(url: str, json_path: str):
+def putj_postguy(url: str, json_path: str = None):
     
+    if json_path is None:
+        json_path = get_default_json()
+        if json_path is None:
+            print("Caminho do JSON não informado e nenhum padrão foi configurado. Use 'setjson' para definir um caminho.")
+            return
     try:
         with open(json_path, "r", encoding="utf-8") as file:
             dados = json.load(file)
@@ -96,8 +126,13 @@ def putj_postguy(url: str, json_path: str):
     except Exception:
         print("Não foi possível decodificar a resposta como JSON.")
 
-def patchj_postguy(url: str, json_path: str):
-   
+def patchj_postguy(url: str, json_path: str = None):
+    
+    if json_path is None:
+        json_path = get_default_json()
+        if json_path is None:
+            print("Caminho do JSON não informado e nenhum padrão foi configurado. Use 'setjson' para definir um caminho.")
+            return
     try:
         with open(json_path, "r", encoding="utf-8") as file:
             dados = json.load(file)

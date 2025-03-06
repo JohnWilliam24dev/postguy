@@ -1,0 +1,65 @@
+Para fazer o download do CLI, você deve executar o arquivo installer-postguy.bat COMO ADMINISTRADOR para evitar qualquer problema.
+Após a instalação, será solicitado que você pressione qualquer tecla, e o Postguy terá sido instalado com sucesso.
+
+Para testar:
+Abra o CMD.
+Digite: postguy --help.
+Aparecerá uma tela semelhante a esta:
+	usage: postguy [-h] {set,get,post,postj,put,patch,delete,putj,patchj} ...
+
+	CLI criado para realizar testes em APIs de forma rápida e simples.
+
+	positional arguments:
+	  {set,get,post,postj,put,patch,delete,putj,patchj}
+	    set                 Define a URL da API a ser testada.
+	    get                 Realiza um teste GET na API.
+	    post                Realiza um teste POST na API.
+	    postj               Realiza um teste POST utilizando um arquivo JSON.
+	    put                 Realiza um teste PUT na API.
+	    patch               Realiza um teste PATCH na API.
+	    delete              Realiza um teste DELETE na API.
+	    putj                Realiza um teste PUT utilizando um arquivo JSON.
+	    patchj              Realiza um teste PATCH utilizando um arquivo JSON.
+
+	options:
+	  -h, --help            Exibe esta mensagem de ajuda e sai.
+	  
+	  
+Parabéns! O Postguy foi instalado com sucesso e está pronto para ser usado.
+
+
+
+To download the CLI, you must run the installer-postguy.bat file AS ADMINISTRATOR to avoid any issues.
+After installation, you will be prompted to press any key, and Postguy will be successfully installed.
+
+To test:
+Open CMD.
+Type: postguy --help.
+You will see a screen like this:
+usage: postguy [-h] {set,get,post,postj,put,patch,delete,putj,patchj} ...
+
+CLI created to perform API testing quickly and easily.
+
+positional arguments:
+  {set,get,post,postj,put,patch,delete,putj,patchj}
+    set                 Defines the API URL to be tested.
+    get                 Performs a GET test on the API.
+    post                Performs a POST test on the API.
+    postj               Performs a POST test using a JSON file.
+    put                 Performs a PUT test on the API.
+    patch               Performs a PATCH test on the API.
+    delete              Performs a DELETE test on the API.
+    putj                Performs a PUT test using a JSON file.
+    patchj              Performs a PATCH test using a JSON file.
+
+options:
+  -h, --help            Shows this help message and exits.
+  
+Congratulations! Postguy has been successfully installed and is ready to use.
+
+
+
+
+
+
+
