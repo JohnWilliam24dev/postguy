@@ -4,7 +4,7 @@ A ideia consiste em poder testar suas APIs de forma rapida e automatizada do pad
 # INSTALAÇÃO
 ## LINUX
 
-curl -sSL https://raw.githubusercontent.com/JohnWilliam24dev/postguy/main/install.sh | bash 
+`curl -sSL https://raw.githubusercontent.com/JohnWilliam24dev/postguy/main/install.sh | bash` 
 
 ## WINDOWS
 
